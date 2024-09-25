@@ -1,18 +1,20 @@
-import { api } from './index'
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQuery } from './index';
 
-
-export const productApi = api.injectEndpoints({
+export const api = createApi({
+    reducerPath: 'productApi', 
+    baseQuery, 
     endpoints: (build) => ({
         getProduct: build.query({
             query: (params) => ({
-                url: "/product",
+                url: "/products",
                 params,
             }),
             providesTags: ["Product"],
         }),
         getProductById: build.query({
             query: (id) => ({
-                url: `/product/${id}`,
+                url: `/products/${id}`,
             }),
             providesTags: ["Product"],
         }),
@@ -48,4 +50,4 @@ export const {
     useDeleteProductMutation,
     useGetProductQuery,
     useGetProductByIdQuery,
-} = productApi;
+} = api;

@@ -1,15 +1,9 @@
-import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 
-const baseQuery = async (args, api, extraOptions) => {
-    const { dispatch } = api
-    const rawBaseQuery = fetchBaseQuery({
-        baseUrl: "https://headphones-server.onrender.com/",
-        prepareHeaders: (headers) => {
-            const token = localStorage.getItem("x-auth-token")
-            if (token) {
-                headers.set("Authorization", `Bearer ${token}`);
-            }
-            return headers
-        }
-    })
-}
+const baseQueryWithRetry = retry(fetchBaseQuery({
+    baseUrl: "https://headphones-server.onrender.com/",
+}), { maxRetries: 3 });
+
+export const baseQuery = (args, api, extraOptions) => {
+    return baseQueryWithRetry(args, api, extraOptions);
+};

@@ -48,10 +48,9 @@ const Header = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div className='container'>
-                    <div className=' flex  justify-between py-[40px]'>
+                    <div className=' flex   justify-between py-[40px]'>
                         <div>
                             <NavLink to="/">
                                 <img src={geek} alt="" />
